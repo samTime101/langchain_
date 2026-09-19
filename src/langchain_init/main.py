@@ -51,7 +51,7 @@ agent = create_agent(
     checkpointer=checkpointer
 )
 
-config = {'configurable':{'thread_id': 1}}
+config = {"configurable": {"thread_id": "1"}}
 
 agent_response = agent.invoke(
     {
@@ -75,3 +75,32 @@ print("--")
 print(agent_response['structured_response'].tmpr_fahrenheit)
 print("--")
 print(agent_response['structured_response'].summary)
+
+
+
+# REMEMBERING THE CONTEXT
+
+agent_response = agent.invoke(
+    {
+        "messages": [
+            {
+                "role": "user",
+                "content": "is this ususal???"
+            }
+        ]
+    },
+    config=config,
+    context=Context(user_id="samip")
+)
+
+
+print(agent_response['structured_response'])
+print("--")
+print(agent_response['structured_response'].summary)
+print("--")
+print(agent_response['structured_response'].tmpr_celsius)
+print("--")
+print(agent_response['structured_response'].tmpr_fahrenheit)
+print("--")
+print(agent_response['structured_response'].summary)
+
